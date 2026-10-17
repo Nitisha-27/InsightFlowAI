@@ -1,0 +1,17 @@
+
+# InsightFlowAI
+
+InsightFlowAI is a data analytics project focused on SQL analytics using Python and SQLite.
+
+## Technologies Used
+- Python
+- SQL
+- SQLite
+- Pandas
+- Google Colab
+
+## Project Notebook
+The main analysis notebook is `InsightFlowAI.ipynb`.
+
+## Execution
+Open the notebook in Google Colab and run the cells in sequence. Configure the required Google Drive paths and data files before running.
