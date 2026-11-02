@@ -1,147 +1,90 @@
 # InsightFlow AI
-### End-to-End E-Commerce Analytics, Business Intelligence & Predictive Customer Retention
 
-InsightFlow AI is an end-to-end data analytics and machine learning project built using the Brazilian E-Commerce Public Dataset by Olist. It transforms raw e-commerce data into a structured analytics warehouse, performs enterprise-level SQL analysis, generates automated business insights, and develops predictive models to understand customer purchasing and retention behaviour.
+InsightFlow AI is an end-to-end e-commerce data analytics and machine learning project developed using the Brazilian E-Commerce Public Dataset by Olist. The project focuses on transforming raw transactional data into meaningful business insights through data engineering, SQL analytics, business intelligence and predictive customer retention modelling.
 
-The project follows a complete data workflow, starting from raw data acquisition and ending with business intelligence reports and machine learning predictions.
+The project was developed as a multi-stage data pipeline, starting from raw data collection and ending with analytical reports and machine learning predictions.
 
----
+## Technologies Used
 
-## 1. Project Overview
+- **Programming:** Python
+- **Data Processing:** Pandas, NumPy
+- **Database:** SQLite
+- **Query Language:** SQL
+- **Machine Learning:** Scikit-learn, XGBoost
+- **Hyperparameter Optimization:** Optuna
+- **Visualization:** Matplotlib
+- **Storage Formats:** CSV, Parquet
+- **Development Environment:** Google Colab
+- **Data Source:** Kaggle
 
-E-commerce businesses generate large amounts of transactional data, but raw data alone does not provide meaningful business insights.
+## Dataset
 
-InsightFlow AI addresses this problem by building a data pipeline that:
+**Brazilian E-Commerce Public Dataset by Olist**
 
-- Collects and processes multiple e-commerce datasets.
-- Performs data profiling and quality assessment.
-- Cleans and transforms raw datasets.
-- Builds an analytics data warehouse.
-- Implements a Star Schema for analytical querying.
-- Performs SQL-based business analysis.
-- Generates automated business intelligence reports.
-- Develops machine learning models for customer retention prediction.
+The dataset contains multiple interconnected CSV files representing different aspects of an e-commerce business.
 
-## 2. Dataset
-
-**Dataset:** Brazilian E-Commerce Public Dataset by Olist
-
-**Source:** [Kaggle – Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
-
-The project uses the following datasets:
-
-| Dataset | Description |
-|---|---|
-| Customers | Customer IDs and geographical information |
-| Orders | Order status and timestamps |
-| Order Items | Products, sellers, prices and freight |
-| Payments | Payment methods and transaction values |
-| Reviews | Customer ratings and review comments |
-| Products | Product categories and attributes |
-| Sellers | Seller information and locations |
-| Geolocation | Geographic coordinates |
-| Translation | Portuguese-to-English product category mapping |
-
-The dataset contains approximately 99,441 orders and 96,096 unique customers.
-
-## 3. System Architecture
-
-The project follows a multi-stage data engineering and analytics pipeline.
-
-```mermaid
-flowchart TD
-    A[Kaggle Dataset] --> B[Data Acquisition]
-    B --> C[Raw Data Storage]
-    C --> D[Data Profiling]
-    D --> E[Data Cleaning and Preprocessing]
-    E --> F[Processed Parquet Files]
-    F --> G[Data Warehouse]
-    G --> H[Star Schema]
-    H --> I[SQLite Database]
-    I --> J[SQL Analytics]
-    I --> K[Business Intelligence Engine]
-    G --> L[Feature Engineering]
-    L --> M[Rolling Retention Dataset]
-    M --> N[Temporal Train Validation Test Split]
-    N --> O[Optuna Hyperparameter Tuning]
-    O --> P[Random Forest and XGBoost]
-    J --> Q[Reports and CSV Exports]
-    K --> Q
-    P --> R[Retention Prediction]
-```
-
-## 4. How the Project Works
-
-### Phase 1: Data Acquisition
-
-The project starts by creating the required directory structure in Google Drive.
-
-The Brazilian E-Commerce dataset is downloaded directly from Kaggle using the Kaggle API.
-
-The downloaded ZIP file is extracted, and the individual CSV files are loaded into Pandas DataFrames.
-
-**Technologies:** Python, Kaggle API, Google Colab, Pandas.
-
-### Phase 2: Data Profiling
-
-Before processing the data, each dataset undergoes exploratory profiling.
-
-The following checks are performed:
-
-- Dataset dimensions (rows and columns).
-- Missing value identification.
-- Duplicate record detection.
-- Data type inspection.
-- Unique value analysis.
-- Numerical and categorical summaries.
-- Memory usage assessment.
-
-This stage helps identify data quality problems before transformation.
-
-### Phase 3: Data Cleaning and Preprocessing
-
-The raw datasets are cleaned and prepared for analytical processing.
-
-Operations include:
-
-- Handling missing values.
-- Removing duplicate records.
-- Correcting data types.
-- Standardizing product category names.
-- Translating Portuguese product categories into English.
-- Preparing cleaned datasets for downstream processing.
-
-The cleaned datasets are stored in Parquet format for efficient data access.
-
-**Output:** Processed customer, order, product, payment, review, seller and geographical datasets.
-
-### Phase 4: Data Warehouse Development
-
-The cleaned datasets are integrated to create a centralized analytical warehouse.
-
-Multiple datasets are joined using their relational keys.
-
-The warehouse combines information about:
+The following datasets were used:
 
 - Customers
 - Orders
-- Order items
+- Order Items
 - Products
 - Sellers
 - Payments
 - Reviews
-- Delivery
-- Geography
+- Geolocation
+- Product Category Translation
 
-The resulting warehouse contains approximately 113,425 rows and 52 columns in its initial integration stage. Additional feature enrichment expands the analytical dataset further.
+Dataset: [Brazilian E-Commerce Dataset – Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-The warehouse is saved in CSV and Parquet formats.
+## How the Project Was Built
 
-### Phase 5: Star Schema Design
+### 1. Data Acquisition and Exploration
 
-To support analytical queries, the project implements a Star Schema.
+The project began by downloading the Olist dataset from Kaggle using the Kaggle API in Google Colab.
 
-The schema separates transactional measurements from descriptive business information.
+- Extracted the downloaded ZIP archive.
+- Loaded individual CSV files into Pandas DataFrames.
+- Examined the structure, dimensions and relationships between datasets.
+- Identified primary identifiers and common joining keys.
+
+This helped establish how customers, orders, products, sellers and payments were connected.
+
+### 2. Data Profiling and Cleaning
+
+Before integrating the datasets, individual data quality checks were performed.
+
+The following operations were implemented:
+
+- Checked missing values across all datasets.
+- Identified and handled duplicate records.
+- Inspected numerical and categorical columns.
+- Corrected data types, particularly date and timestamp columns.
+- Standardized product category names.
+- Translated Portuguese product categories into English.
+- Prepared cleaned datasets for integration.
+
+The processed datasets were stored in Parquet format for efficient downstream processing.
+
+### 3. Data Integration and Warehouse Development
+
+Multiple datasets were integrated using their relational keys.
+
+For example:
+- Customer information was connected with order records.
+- Orders were linked with order items.
+- Order items were connected with product and seller information.
+- Payment records were associated with their respective orders.
+- Reviews were connected to orders.
+- Geolocation data was used to enrich geographical information.
+
+Pandas merge and transformation operations were used to combine these datasets into a consolidated analytical warehouse.
+
+The resulting warehouse was used as the foundation for business analytics and machine learning.
+
+### 4. Star Schema and Database Development
+
+To organize the integrated data for analytical querying, a Star Schema was designed.
 
 **Fact Table:**
 - `fact_sales`
@@ -156,175 +99,180 @@ The schema separates transactional measurements from descriptive business inform
 - `dim_status`
 - `dim_date`
 
-The fact table stores sales-related transactional information, while dimension tables provide descriptive context for analysis.
+The fact table stores transactional sales information, while the dimension tables provide additional descriptive information.
 
-This structure improves analytical organization and makes complex SQL queries easier to manage.
+These tables were loaded into an SQLite database named `warehouse.db`.
 
-### Phase 6: SQLite Database Integration
+This created a structured analytical database that could be queried independently of the original CSV files.
 
-The Star Schema tables are loaded into an SQLite database named:
+### 5. Enterprise SQL Analytics
 
-`warehouse.db`
+After creating the database, SQL was used to perform business-oriented analysis.
 
-SQLite acts as the analytical database for the project.
+Queries were developed to investigate:
 
-The database enables structured querying across the fact and dimension tables without repeatedly joining the original raw CSV files.
-
-### Phase 7: Enterprise SQL Analytics
-
-SQL is used to extract business insights from the warehouse.
-
-The project performs analytical queries across different business areas, including:
-
-- Sales and revenue analysis.
+- Overall sales and revenue.
+- Monthly business performance.
 - Customer purchasing behaviour.
-- Product performance.
+- Product and category performance.
 - Seller performance.
-- Payment analysis.
-- Order and delivery analysis.
-- Review and customer experience analysis.
-- Time-based business trends.
+- Payment methods and transaction patterns.
+- Delivery performance and delays.
+- Customer reviews and satisfaction.
+- Geographic sales distribution.
 
-Query results are exported into CSV reports for further analysis.
+The SQL query results were converted into Pandas DataFrames and exported as CSV reports for further analysis.
 
-### Phase 8: Business Intelligence & Automated Insight Engine
+### 6. Business Intelligence and Automated Insights
 
-This stage transforms analytical results into business-oriented intelligence.
+A dedicated Business Intelligence layer was developed using Python, Pandas and SQLite.
 
-The project generates several analytical outputs:
+The engine connects directly to the analytical warehouse and generates multiple intelligence outputs.
 
-| Intelligence Area | Purpose |
-|---|---|
-| Executive KPI Scorecard | Summarizes overall business performance |
-| Customer Intelligence | Understands customer purchasing behaviour |
-| Product Intelligence | Evaluates product performance |
-| Seller Intelligence | Measures seller performance |
-| Delivery Intelligence | Analyses delivery performance |
-| Geographic Intelligence | Studies geographical sales patterns |
-| Payment Intelligence | Examines payment behaviour |
-| Review Intelligence | Evaluates customer experience |
-| Monthly Business Performance | Identifies time-based trends |
-| Customer Segment Summary | Summarizes customer segments |
+These include:
 
-The engine also generates automated business insight reports.
+- Executive KPI Scorecard.
+- Customer Intelligence.
+- Product Intelligence.
+- Seller Intelligence.
+- Geographic Intelligence.
+- Delivery Intelligence.
+- Payment Intelligence.
+- Review and Customer Experience Analysis.
+- Monthly Business Performance.
+- Customer Segment Summary.
 
-Outputs are saved in CSV and Parquet formats.
+Business metrics such as total revenue, average order value, delivery duration, review scores and other performance indicators were calculated.
 
-### Phase 9: Advanced Analytical Feature Development
+The generated outputs were saved in both CSV and Parquet formats.
 
-The integrated warehouse is further enriched with analytical features.
+### 7. Customer Retention Dataset Development
 
-These features support customer, seller, product, payment and delivery intelligence.
+The next stage focused on developing a machine learning pipeline to predict future customer repeat purchases.
 
-Additional delivery metrics and business performance indicators are developed to improve the analytical dataset.
+Instead of creating a simple static dataset, a rolling temporal approach was implemented.
 
-### Phase 10: Predictive Customer Retention Engine
+The configuration used:
 
-This is the machine learning component of InsightFlow AI.
+- **Observation Window:** 180 days.
+- **Prediction Window:** 90 days.
+- **Snapshot Frequency:** 30 days.
 
-The objective is to identify customers who are likely to make another purchase within the next 90 days.
+For every snapshot date, historical customer behaviour within the observation window was analysed.
 
-#### 10.1 Customer-Level Data Preparation
+The target variable `RepeatPurchase90D` was created by checking whether the customer made another purchase during the following 90 days.
 
-The project uses `customer_unique_id` to identify customers consistently across multiple orders.
-
-Order timestamps are converted into datetime format, and invalid timestamps are excluded.
-
-#### 10.2 Rolling Snapshot Generation
-
-Instead of using a single static dataset, the project creates rolling customer snapshots.
-
-The configuration is:
-
-- Observation window: 180 days.
-- Prediction window: 90 days.
-- Snapshot frequency: 30 days.
-
-For every snapshot, historical customer behaviour is used to determine whether the customer makes another purchase during the following 90 days.
-
-This creates the target variable `RepeatPurchase90D`.
-
-The resulting dataset contains:
+The resulting dataset contained:
 
 - 402,002 customer-snapshot records.
 - 82,780 unique customers.
-- 17 snapshots.
+- 17 temporal snapshots.
 - Approximately 0.8% positive target records.
 
-#### 10.3 Feature Engineering
+This approach helped preserve the time-based nature of customer purchasing behaviour.
 
-The model uses 19 customer-level features, including:
+### 8. Feature Engineering
 
-| Feature | Description |
-|---|---|
-| TotalOrders | Number of historical orders |
-| TotalRevenue | Total customer revenue |
-| AverageOrderValue | Average order value |
-| MaximumOrderValue | Highest order value |
-| AverageBasketSize | Average items per order |
-| AverageBasketValue | Average basket value |
-| TotalItems | Total purchased items |
-| AverageFreight | Average freight cost |
-| AverageDeliveryDays | Average delivery duration |
-| AverageReview | Average review score |
-| TotalProfitProxy | Estimated profit-related metric |
-| RecencyDays | Time since last purchase |
-| CustomerLifetimeDays | Customer activity duration |
-| PurchaseFrequency | Purchase frequency |
-| OrderVelocity | Order activity rate |
-| FreightRatio | Freight relative to order value |
-| CategoryDiversity | Diversity of purchased categories |
-| SellerDiversity | Diversity of sellers purchased from |
-| WeekendPurchaseRatio | Share of weekend purchases |
+Customer-level features were developed from historical transaction data to represent purchasing behaviour.
 
-#### 10.4 Temporal Train, Validation and Test Split
+A total of 19 features were prepared for model development.
 
-The dataset is split chronologically rather than randomly.
+Some important features include:
+
+- Total Orders
+- Total Revenue
+- Average Order Value
+- Maximum Order Value
+- Average Basket Size
+- Total Items
+- Average Freight
+- Average Delivery Days
+- Average Review Score
+- Total Profit Proxy
+- Recency Days
+- Customer Lifetime Days
+- Purchase Frequency
+- Order Velocity
+- Freight Ratio
+- Category Diversity
+- Seller Diversity
+- Weekend Purchase Ratio
+
+These features were used to help the models identify patterns associated with repeat purchasing.
+
+### 9. Temporal Data Splitting
+
+Since customer retention is a time-dependent problem, a chronological splitting strategy was implemented instead of a random train-test split.
+
+The 17 snapshots were divided into:
 
 - Training: 10 snapshots.
 - Validation: 3 snapshots.
 - Testing: 4 snapshots.
 
-This approach helps evaluate the model using later time periods while preserving the chronological structure of customer behaviour.
+This ensures that the model is trained on earlier customer activity and evaluated on later time periods.
 
-#### 10.5 Model Development and Hyperparameter Tuning
+It also helps reduce the risk of using future information while predicting historical customer behaviour.
 
-Two machine learning approaches are explored:
+### 10. Machine Learning Model Development
+
+Two classification approaches were explored.
 
 **Random Forest Classifier**
-- Trained using customer behavioural features.
-- Uses class weighting to address class imbalance.
-- Hyperparameters optimized using Optuna.
-- Evaluated using ROC-AUC, PR-AUC, precision, recall and F1-score.
+
+- Developed using Scikit-learn.
+- Trained on the engineered customer behavioural features.
+- Used class weighting to address the highly imbalanced target variable.
+- Tuned using Optuna.
+- Evaluated using multiple classification metrics.
 
 **XGBoost Classifier**
-- Developed as another approach to customer retention prediction.
-- Uses class imbalance handling.
-- Hyperparameters are optimized using Optuna.
-- Evaluated using classification and ranking metrics.
 
-Because repeat purchases are relatively rare, PR-AUC is used as an important optimization metric.
+- Developed using the XGBoost framework.
+- Used class imbalance handling through `scale_pos_weight`.
+- Optimized hyperparameters using Optuna.
+- Evaluated and compared with the Random Forest approach.
 
-The validation results are used to assess model performance and compare approaches.
+### 11. Hyperparameter Optimization and Evaluation
 
-## 5. Technology Stack
+Optuna was used to search for better model configurations.
 
-| Category | Technologies |
-|---|---|
-| Programming | Python |
-| Data Processing | Pandas, NumPy |
-| Data Visualization | Matplotlib |
-| Data Acquisition | Kaggle API |
-| Development Environment | Google Colab |
-| Storage | Google Drive |
-| File Formats | CSV, Parquet |
-| Database | SQLite |
-| Query Language | SQL |
-| Machine Learning | Scikit-learn, XGBoost |
-| Hyperparameter Optimization | Optuna |
-| Evaluation | ROC-AUC, PR-AUC, Precision, Recall, F1-score |
+For Random Forest, parameters such as the following were optimized:
 
-## 6. Project Directory Structure
+- Number of estimators.
+- Maximum tree depth.
+- Minimum samples split.
+- Minimum samples per leaf.
+- Maximum features.
+- Class weights.
+
+PR-AUC was selected as the primary optimization metric because the repeat-purchase target was highly imbalanced.
+
+The models were evaluated using:
+
+- ROC-AUC
+- PR-AUC
+- Precision
+- Recall
+- F1-score
+- Confusion Matrix
+
+The evaluation helped assess how effectively the models identified customers likely to make repeat purchases.
+
+## Key Project Outcomes
+
+- Developed an integrated e-commerce data warehouse.
+- Implemented Star Schema-based dimensional modelling.
+- Built an SQLite analytical database.
+- Performed multi-dimensional SQL business analysis.
+- Automated business intelligence report generation.
+- Created a rolling temporal customer retention dataset.
+- Engineered 19 customer behavioural features.
+- Developed Random Forest and XGBoost classification pipelines.
+- Applied Optuna for hyperparameter optimization.
+- Implemented chronological model validation.
+
+## Project Structure
 
 ```text
 InsightFlow_AI/
@@ -332,73 +280,29 @@ InsightFlow_AI/
 ├── data/
 │   ├── raw/
 │   ├── processed/
-│   ├── warehouse/
-│   └── synthetic/
-│
-├── models/
+│   └── warehouse/
 │
 ├── reports/
 │   ├── sql_results/
 │   ├── phase8_business_intelligence/
 │   └── phase10b_retention/
 │
-├── images/
-├── exports/
+├── models/
 │
 ├── warehouse.db
+│
 └── InsightFlowAI.ipynb
 ```
 
-## 7. How to Run the Project
+## Future Improvements
 
-The project notebook is designed to run using Google Colab.
+- Develop an interactive business intelligence dashboard.
+- Improve customer retention prediction performance.
+- Implement SHAP for model explainability.
+- Automate data pipeline execution.
+- Develop a deployment interface for business users.
 
-1. Open the notebook using the Google Colab link.
-2. Connect your Google Drive.
-3. Configure Kaggle API authentication securely using Colab Secrets or environment variables.
-4. Install the required Python libraries.
-5. Execute the notebook cells sequentially.
-6. Allow the notebook to download and extract the dataset.
-7. Run the profiling, cleaning and warehouse creation stages.
-8. Execute SQL analytics and generate business intelligence reports.
-9. Run the customer retention modelling pipeline.
-10. Review the generated analytical reports and model evaluation results.
-
-**Open in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Nitisha-27/InsightFlowAI/blob/main/InsightFlowAI.ipynb)
-
-## 8. Key Learning Outcomes
-
-Through this project, the following concepts and technical skills were applied:
-
-- End-to-end data engineering workflows.
-- Exploratory Data Analysis and data profiling.
-- Data cleaning and preprocessing.
-- Multi-table data integration.
-- Data warehouse development.
-- Star Schema and dimensional modelling.
-- SQL-based business analytics.
-- Business intelligence and KPI development.
-- Feature engineering.
-- Imbalanced classification.
-- Time-based model validation.
-- Machine learning model development.
-- Optuna-based hyperparameter optimization.
-- Model performance evaluation.
-
-## 9. Future Enhancements
-
-Potential extensions to the project include:
-
-- Developing an interactive business intelligence dashboard.
-- Adding customer-level retention risk visualizations.
-- Improving minority-class prediction performance.
-- Adding explainability using SHAP.
-- Building an interactive interface for business users.
-- Automating data refresh and model retraining.
-
-## 10. Author
+## Author
 
 **Nitisha Mishra**
 
@@ -407,7 +311,3 @@ B.Tech – Electronics and Communication Engineering (Biomedical Specialization)
 VIT Vellore
 
 GitHub: [Nitisha-27](https://github.com/Nitisha-27)
-
----
-
-*InsightFlow AI demonstrates how raw transactional data can be transformed into structured business intelligence and predictive customer analytics through data engineering, SQL and machine learning.*
